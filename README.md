@@ -90,7 +90,7 @@ This portfolio includes a selection of data-driven projects, from exploratory wo
 
 ## 📫 Contact
 
-- 🔗 [LinkedIn](https://www.linkedin.com/in/miguelvazquezvarela/)  
+- 🔗 [LinkedIn]([(https://www.linkedin.com/in/miguel-%C3%A1ngel-v%C3%A1zquez-varela-0a9744127/])  
 - 📧 Email: miguel.a.vazquezvarela@gmail.com  
 - 💻 GitHub: [github.com/tu_usuario](https://github.com/tu_usuario)
 
