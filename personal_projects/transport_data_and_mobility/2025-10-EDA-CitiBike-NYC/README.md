@@ -18,5 +18,5 @@ The goal is to perform a full exploratory data analysis (EDA) to understand trip
 
 ## How to View
 
-- Open the notebook directly on GitHub to see code and results (`EDA_CitiBike_NYC.ipynb`).  
+- Open the notebook directly on GitHub to see code and results: [EDA_CitiBike_NYC.ipynb](EDA_CitiBike_NYC.ipynb)  
 - Alternatively, you can use [nbviewer](https://nbviewer.org/) to render it nicely in your browser.
