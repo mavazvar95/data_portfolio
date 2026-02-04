@@ -1,0 +1,31 @@
+<!DOCTYPE qgis PUBLIC 'http://mrcc.com/qgis.dtd' 'SYSTEM'>
+<qgis version="3.34.8-Prizren">
+  <identifier>https://services1.arcgis.com/nCKYwcSONQTkPA4K/arcgis/rest/services/Centros_educativos_de_España/FeatureServer/0</identifier>
+  <parentidentifier></parentidentifier>
+  <language></language>
+  <type>dataset</type>
+  <title>Centros_educativos_Final</title>
+  <abstract></abstract>
+  <links>
+    <link name="Fuente" description="" type="WWW:LINK" format="" size="" mimeType="" url="https://services1.arcgis.com/nCKYwcSONQTkPA4K/arcgis/rest/services/Centros_educativos_de_España/FeatureServer/0"/>
+  </links>
+  <dates/>
+  <fees></fees>
+  <encoding></encoding>
+  <crs>
+    <spatialrefsys nativeFormat="Wkt">
+      <wkt></wkt>
+      <proj4>+proj=utm +zone=30 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs</proj4>
+      <srsid>2103</srsid>
+      <srid>25830</srid>
+      <authid>EPSG:25830</authid>
+      <description>ETRS89 / UTM zone 30N</description>
+      <projectionacronym>utm</projectionacronym>
+      <ellipsoidacronym>EPSG:7019</ellipsoidacronym>
+      <geographicflag>false</geographicflag>
+    </spatialrefsys>
+  </crs>
+  <extent>
+    <spatial maxy="4854389.93009999953210354" dimensions="2" maxx="1123747.67420000024139881" miny="3134377.19859999977052212" minx="-988846.03550000011455268" minz="nan" crs="EPSG:25830" maxz="nan"/>
+  </extent>
+</qgis>

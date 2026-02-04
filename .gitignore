@@ -1,0 +1,20 @@
+# IDE and editor files
+.vscode/
+.idea/
+
+# Python
+.ipynb_checkpoints/
+__pycache__/
+*.pyc
+.env
+.venv/
+venv/
+
+# R
+.Rhistory
+.RData
+.Rproj.user/
+
+# OS
+.DS_Store
+Thumbs.db

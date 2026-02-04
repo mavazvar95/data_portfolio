@@ -1,0 +1,531 @@
+---
+title: "CitiBike NYC: Urban Mobility Analysis"
+subtitle: "Exploratory Data Analysis of 5.2 Million Bike-Share Trips"
+author: "Miguel Ángel Vázquez Varela"
+date: "October 2025"
+format:
+  html:
+    theme: cosmo
+    toc: true
+    toc-depth: 3
+    code-fold: true
+    code-summary: "Show code"
+    self-contained: true
+    output-file: index.html
+execute:
+  echo: true
+  warning: false
+  message: false
+---
+
+## 1. Introduction & Business Context
+
+**CitiBike** is the largest bike-share system in the United States, with over 25,000 bikes and 1,500 stations across New York City. As cities worldwide prioritize sustainable transportation, understanding micro-mobility patterns becomes critical for:
+
+- **Urban Planning**: Infrastructure investment decisions
+- **Operations**: Fleet rebalancing and station capacity optimization
+- **Policy**: Evaluating bike-share as a "last-mile" transit solution
+- **Marketing**: Converting casual users to annual members
+
+This analysis explores **September 2025 trip data** to uncover actionable insights about NYC's cycling behavior.
+
+---
+
+## 2. Data Loading & Preparation
+
+```{python}
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+import zipfile
+import requests
+from io import BytesIO
+
+# Set visualization style
+plt.style.use('seaborn-v0_8-whitegrid')
+sns.set_palette("husl")
+plt.rcParams['figure.figsize'] = (12, 6)
+plt.rcParams['font.size'] = 11
+
+# Download and merge data from CitiBike S3
+url = "https://s3.amazonaws.com/tripdata/202509-citibike-tripdata.zip"
+print("Downloading data from CitiBike...")
+r = requests.get(url)
+z = zipfile.ZipFile(BytesIO(r.content))
+
+print(f"Files in ZIP: {z.namelist()}")
+
+# Merge all CSV files
+dfs = []
+for f in z.namelist():
+    df_part = pd.read_csv(z.open(f), parse_dates=['started_at', 'ended_at'], low_memory=False)
+    dfs.append(df_part)
+
+df = pd.concat(dfs, ignore_index=True)
+print(f"\nTotal records loaded: {len(df):,}")
+```
+
+### 2.1 Data Overview
+
+```{python}
+# Dataset dimensions and structure
+print(f"Dataset Shape: {df.shape[0]:,} rows × {df.shape[1]} columns")
+print(f"\nColumn Types:")
+print(df.dtypes)
+```
+
+```{python}
+# Sample of the data
+df.head()
+```
+
+### 2.2 Data Quality Assessment
+
+```{python}
+# Missing values analysis
+missing = df.isnull().sum()
+missing_pct = (missing / len(df) * 100).round(2)
+missing_df = pd.DataFrame({'Missing': missing, 'Percentage': missing_pct})
+missing_df[missing_df['Missing'] > 0].sort_values('Missing', ascending=False)
+```
+
+### 2.3 Feature Engineering
+
+```{python}
+# Calculate trip duration
+df['duration_min'] = (df['ended_at'] - df['started_at']).dt.total_seconds() / 60
+
+# Filter invalid trips (negative or extremely long)
+original_size = len(df)
+df = df[(df['duration_min'] > 0) & (df['duration_min'] <= 180)]
+print(f"Records removed (invalid duration): {original_size - len(df):,}")
+print(f"Clean dataset size: {len(df):,}")
+
+# Extract temporal features
+df['hour'] = df['started_at'].dt.hour
+df['day_of_week'] = df['started_at'].dt.day_name()
+df['day_num'] = df['started_at'].dt.dayofweek
+df['date'] = df['started_at'].dt.date
+df['is_weekend'] = df['day_num'].isin([5, 6])
+```
+
+---
+
+## 3. Trip Duration Analysis
+
+Understanding trip duration is fundamental for operational planning and user experience optimization.
+
+### 3.1 Duration Distribution
+
+```{python}
+fig, axes = plt.subplots(1, 2, figsize=(14, 5))
+
+# Histogram
+axes[0].hist(df['duration_min'], bins=60, edgecolor='white', alpha=0.7, color='#2ecc71')
+axes[0].axvline(df['duration_min'].median(), color='red', linestyle='--', linewidth=2, label=f'Median: {df["duration_min"].median():.1f} min')
+axes[0].axvline(df['duration_min'].mean(), color='orange', linestyle='--', linewidth=2, label=f'Mean: {df["duration_min"].mean():.1f} min')
+axes[0].set_xlabel('Trip Duration (minutes)')
+axes[0].set_ylabel('Number of Trips')
+axes[0].set_title('Distribution of Trip Durations')
+axes[0].legend()
+axes[0].set_xlim(0, 60)
+
+# Box plot by user type
+sns.boxplot(data=df, x='member_casual', y='duration_min', ax=axes[1], palette=['#3498db', '#e74c3c'])
+axes[1].set_xlabel('User Type')
+axes[1].set_ylabel('Trip Duration (minutes)')
+axes[1].set_title('Trip Duration by User Type')
+axes[1].set_ylim(0, 60)
+
+plt.tight_layout()
+plt.show()
+```
+
+```{python}
+# Duration statistics by user type
+duration_stats = df.groupby('member_casual')['duration_min'].agg(['count', 'mean', 'median', 'std', 'min', 'max'])
+duration_stats.columns = ['Trips', 'Mean (min)', 'Median (min)', 'Std Dev', 'Min', 'Max']
+duration_stats['Trips'] = duration_stats['Trips'].apply(lambda x: f"{x:,}")
+duration_stats.round(2)
+```
+
+**Key Insight**: Casual users take significantly longer trips (median ~13 min) compared to members (~9 min), suggesting different use cases: leisure vs. commuting.
+
+---
+
+## 4. Temporal Patterns
+
+Analyzing when trips occur reveals critical information about system usage and demand patterns.
+
+### 4.1 Hourly Distribution
+
+```{python}
+fig, axes = plt.subplots(1, 2, figsize=(14, 5))
+
+# Overall hourly pattern
+hourly = df.groupby('hour').size()
+axes[0].bar(hourly.index, hourly.values, color='#3498db', edgecolor='white')
+axes[0].set_xlabel('Hour of Day')
+axes[0].set_ylabel('Number of Trips')
+axes[0].set_title('Trip Volume by Hour of Day')
+axes[0].set_xticks(range(0, 24, 2))
+
+# Highlight peak hours
+peak_morning = hourly.loc[7:9].sum()
+peak_evening = hourly.loc[17:19].sum()
+axes[0].axvspan(7, 9, alpha=0.3, color='orange', label='Morning Rush')
+axes[0].axvspan(17, 19, alpha=0.3, color='red', label='Evening Rush')
+axes[0].legend()
+
+# Hourly by user type
+hourly_user = df.groupby(['hour', 'member_casual']).size().unstack()
+hourly_user.plot(kind='line', ax=axes[1], marker='o', linewidth=2)
+axes[1].set_xlabel('Hour of Day')
+axes[1].set_ylabel('Number of Trips')
+axes[1].set_title('Hourly Pattern: Members vs Casual Users')
+axes[1].set_xticks(range(0, 24, 2))
+axes[1].legend(title='User Type')
+
+plt.tight_layout()
+plt.show()
+```
+
+**Key Insight**: Clear commuter peaks at 8 AM and 5-6 PM for members. Casual users show a more gradual midday pattern, consistent with leisure/tourist usage.
+
+### 4.2 Weekly Patterns
+
+```{python}
+fig, axes = plt.subplots(1, 2, figsize=(14, 5))
+
+# Daily trip volume
+day_order = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+daily = df.groupby('day_of_week').size().reindex(day_order)
+
+colors = ['#3498db' if day not in ['Saturday', 'Sunday'] else '#e74c3c' for day in day_order]
+axes[0].bar(day_order, daily.values, color=colors, edgecolor='white')
+axes[0].set_xlabel('Day of Week')
+axes[0].set_ylabel('Number of Trips')
+axes[0].set_title('Trip Volume by Day of Week')
+axes[0].tick_params(axis='x', rotation=45)
+
+# Weekday vs Weekend by user type
+weekend_user = df.groupby(['is_weekend', 'member_casual']).size().unstack()
+weekend_user.index = ['Weekday', 'Weekend']
+weekend_user.plot(kind='bar', ax=axes[1], color=['#3498db', '#e74c3c'], edgecolor='white')
+axes[1].set_xlabel('')
+axes[1].set_ylabel('Number of Trips')
+axes[1].set_title('Weekday vs Weekend: Members vs Casual')
+axes[1].tick_params(axis='x', rotation=0)
+axes[1].legend(title='User Type')
+
+plt.tight_layout()
+plt.show()
+```
+
+### 4.3 Heatmap: Hour × Day of Week
+
+```{python}
+# Create pivot table for heatmap
+heatmap_data = df.groupby(['day_num', 'hour']).size().unstack(fill_value=0)
+heatmap_data.index = day_order
+
+plt.figure(figsize=(14, 6))
+sns.heatmap(heatmap_data, cmap='YlOrRd', annot=False, fmt='d',
+            cbar_kws={'label': 'Number of Trips'})
+plt.xlabel('Hour of Day')
+plt.ylabel('Day of Week')
+plt.title('Trip Intensity Heatmap: Day of Week × Hour')
+plt.tight_layout()
+plt.show()
+```
+
+**Key Insight**: Weekday mornings (7-9 AM) and evenings (5-7 PM) show highest demand. Weekend afternoons (12-5 PM) are busiest for leisure trips.
+
+---
+
+## 5. User Segmentation Analysis
+
+Understanding the member vs. casual split is crucial for business strategy.
+
+### 5.1 User Type Distribution
+
+```{python}
+fig, axes = plt.subplots(1, 2, figsize=(12, 5))
+
+# Pie chart
+user_counts = df['member_casual'].value_counts()
+colors = ['#3498db', '#e74c3c']
+axes[0].pie(user_counts, labels=user_counts.index, autopct='%1.1f%%',
+            colors=colors, explode=(0.02, 0.02), startangle=90)
+axes[0].set_title('User Type Distribution')
+
+# Bike type preference by user
+bike_user = df.groupby(['member_casual', 'rideable_type']).size().unstack(fill_value=0)
+bike_user_pct = bike_user.div(bike_user.sum(axis=1), axis=0) * 100
+bike_user_pct.plot(kind='bar', ax=axes[1], color=['#2ecc71', '#9b59b6'], edgecolor='white')
+axes[1].set_xlabel('User Type')
+axes[1].set_ylabel('Percentage (%)')
+axes[1].set_title('Bike Type Preference by User Type')
+axes[1].tick_params(axis='x', rotation=0)
+axes[1].legend(title='Bike Type')
+
+plt.tight_layout()
+plt.show()
+```
+
+```{python}
+# Detailed user statistics
+print("User Type Summary:")
+print(f"  Members: {user_counts['member']:,} trips ({user_counts['member']/len(df)*100:.1f}%)")
+print(f"  Casual:  {user_counts['casual']:,} trips ({user_counts['casual']/len(df)*100:.1f}%)")
+```
+
+### 5.2 Behavioral Differences
+
+```{python}
+fig, axes = plt.subplots(1, 2, figsize=(14, 5))
+
+# Average duration by hour and user type
+hourly_duration = df.groupby(['hour', 'member_casual'])['duration_min'].mean().unstack()
+hourly_duration.plot(kind='line', ax=axes[0], marker='o', linewidth=2, color=['#3498db', '#e74c3c'])
+axes[0].set_xlabel('Hour of Day')
+axes[0].set_ylabel('Average Trip Duration (min)')
+axes[0].set_title('Average Trip Duration by Hour')
+axes[0].legend(title='User Type')
+axes[0].set_xticks(range(0, 24, 2))
+
+# Weekend ratio
+weekend_ratio = df.groupby('member_casual')['is_weekend'].mean() * 100
+weekend_ratio.plot(kind='bar', ax=axes[1], color=['#3498db', '#e74c3c'], edgecolor='white')
+axes[1].set_xlabel('User Type')
+axes[1].set_ylabel('% of Trips on Weekends')
+axes[1].set_title('Weekend Trip Percentage by User Type')
+axes[1].tick_params(axis='x', rotation=0)
+axes[1].axhline(y=28.57, color='gray', linestyle='--', label='Expected (2/7 days)')
+axes[1].legend()
+
+plt.tight_layout()
+plt.show()
+```
+
+**Key Insight**: Casual users have a higher weekend proportion (32%) vs members (26%), confirming the leisure vs. commute hypothesis.
+
+---
+
+## 6. Station Demand Analysis
+
+Identifying high-demand stations informs infrastructure and rebalancing decisions.
+
+### 6.1 Top Start Stations
+
+```{python}
+# Top 15 start stations
+top_start = df['start_station_name'].value_counts().head(15)
+
+plt.figure(figsize=(12, 6))
+bars = plt.barh(range(len(top_start)), top_start.values, color='#3498db', edgecolor='white')
+plt.yticks(range(len(top_start)), top_start.index)
+plt.xlabel('Number of Trip Starts')
+plt.title('Top 15 Most Popular Start Stations')
+plt.gca().invert_yaxis()
+
+# Add value labels
+for i, v in enumerate(top_start.values):
+    plt.text(v + 1000, i, f'{v:,}', va='center', fontsize=9)
+
+plt.tight_layout()
+plt.show()
+```
+
+### 6.2 Top End Stations
+
+```{python}
+# Top 15 end stations
+top_end = df['end_station_name'].value_counts().head(15)
+
+plt.figure(figsize=(12, 6))
+plt.barh(range(len(top_end)), top_end.values, color='#e74c3c', edgecolor='white')
+plt.yticks(range(len(top_end)), top_end.index)
+plt.xlabel('Number of Trip Ends')
+plt.title('Top 15 Most Popular End Stations')
+plt.gca().invert_yaxis()
+
+for i, v in enumerate(top_end.values):
+    plt.text(v + 1000, i, f'{v:,}', va='center', fontsize=9)
+
+plt.tight_layout()
+plt.show()
+```
+
+### 6.3 Station Imbalance Analysis
+
+```{python}
+# Calculate net flow (arrivals - departures) per station
+departures = df['start_station_name'].value_counts()
+arrivals = df['end_station_name'].value_counts()
+
+# Combine into dataframe
+flow = pd.DataFrame({
+    'departures': departures,
+    'arrivals': arrivals
+}).fillna(0)
+flow['net_flow'] = flow['arrivals'] - flow['departures']
+flow['imbalance_ratio'] = flow['net_flow'] / (flow['departures'] + flow['arrivals']) * 100
+
+# Top imbalanced stations
+fig, axes = plt.subplots(1, 2, figsize=(14, 6))
+
+# Most arrivals (bikes accumulate)
+top_surplus = flow.nlargest(10, 'net_flow')
+axes[0].barh(range(len(top_surplus)), top_surplus['net_flow'].values, color='#2ecc71', edgecolor='white')
+axes[0].set_yticks(range(len(top_surplus)))
+axes[0].set_yticklabels(top_surplus.index)
+axes[0].set_xlabel('Net Bike Flow (Arrivals - Departures)')
+axes[0].set_title('Stations with Bike Surplus\n(Need bike removal)')
+axes[0].invert_yaxis()
+
+# Most departures (bikes needed)
+top_deficit = flow.nsmallest(10, 'net_flow')
+axes[1].barh(range(len(top_deficit)), top_deficit['net_flow'].values, color='#e74c3c', edgecolor='white')
+axes[1].set_yticks(range(len(top_deficit)))
+axes[1].set_yticklabels(top_deficit.index)
+axes[1].set_xlabel('Net Bike Flow (Arrivals - Departures)')
+axes[1].set_title('Stations with Bike Deficit\n(Need bike replenishment)')
+axes[1].invert_yaxis()
+
+plt.tight_layout()
+plt.show()
+```
+
+**Operational Insight**: Stations with high surplus need bike removal, while deficit stations require replenishment. This informs rebalancing truck routes.
+
+---
+
+## 7. Geographic Analysis
+
+```{python}
+# Calculate station-level statistics
+station_stats = df.groupby(['start_station_name', 'start_lat', 'start_lng']).agg({
+    'ride_id': 'count',
+    'duration_min': 'mean',
+    'member_casual': lambda x: (x == 'member').mean() * 100
+}).reset_index()
+station_stats.columns = ['station', 'lat', 'lng', 'trips', 'avg_duration', 'member_pct']
+station_stats = station_stats.dropna()
+
+# Scatter plot: geographic distribution colored by volume
+plt.figure(figsize=(10, 12))
+scatter = plt.scatter(
+    station_stats['lng'],
+    station_stats['lat'],
+    c=station_stats['trips'],
+    s=station_stats['trips'] / 500,
+    cmap='YlOrRd',
+    alpha=0.6,
+    edgecolors='black',
+    linewidths=0.5
+)
+plt.colorbar(scatter, label='Number of Trips', shrink=0.7)
+plt.xlabel('Longitude')
+plt.ylabel('Latitude')
+plt.title('Station Locations Colored by Trip Volume\n(Size = Trip Volume)')
+plt.tight_layout()
+plt.show()
+```
+
+**Geographic Insight**: Highest demand concentrated in Midtown and Downtown Manhattan, with secondary clusters in Brooklyn near transit hubs.
+
+---
+
+## 8. Daily Trends
+
+```{python}
+# Daily trip volume
+daily_trips = df.groupby('date').size()
+
+plt.figure(figsize=(14, 5))
+plt.plot(daily_trips.index, daily_trips.values, linewidth=1.5, color='#3498db')
+plt.fill_between(daily_trips.index, daily_trips.values, alpha=0.3, color='#3498db')
+plt.xlabel('Date')
+plt.ylabel('Number of Trips')
+plt.title('Daily Trip Volume - September 2025')
+plt.xticks(rotation=45)
+
+# Add weekend shading
+import datetime
+for date in daily_trips.index:
+    if datetime.date.fromisoformat(str(date)).weekday() >= 5:
+        plt.axvspan(date, date + datetime.timedelta(days=1), alpha=0.1, color='gray')
+
+plt.tight_layout()
+plt.show()
+
+print(f"Average daily trips: {daily_trips.mean():,.0f}")
+print(f"Peak day: {daily_trips.idxmax()} with {daily_trips.max():,} trips")
+print(f"Lowest day: {daily_trips.idxmin()} with {daily_trips.min():,} trips")
+```
+
+---
+
+## 9. Key Findings & Recommendations
+
+### Summary Statistics
+
+```{python}
+# Final summary table
+summary = {
+    'Total Trips Analyzed': f"{len(df):,}",
+    'Date Range': f"{df['date'].min()} to {df['date'].max()}",
+    'Unique Stations': f"{df['start_station_name'].nunique():,}",
+    'Average Trip Duration': f"{df['duration_min'].mean():.1f} minutes",
+    'Median Trip Duration': f"{df['duration_min'].median():.1f} minutes",
+    'Member Percentage': f"{(df['member_casual'] == 'member').mean()*100:.1f}%",
+    'Peak Hour': f"{df.groupby('hour').size().idxmax()}:00",
+    'Busiest Day': df['day_of_week'].value_counts().index[0]
+}
+
+pd.DataFrame.from_dict(summary, orient='index', columns=['Value'])
+```
+
+### Business Recommendations
+
+| Area | Finding | Recommendation |
+|------|---------|----------------|
+| **Operations** | Morning (8-9 AM) and evening (5-6 PM) peaks | Pre-position bikes at high-demand stations before rush hours |
+| **Rebalancing** | Significant imbalance at commuter stations | Prioritize rebalancing at Midtown stations during off-peak |
+| **Marketing** | 19% casual users with longer trip durations | Target casual users with membership conversion campaigns |
+| **Infrastructure** | Top 10 stations handle disproportionate volume | Consider capacity expansion at busiest locations |
+| **Pricing** | Weekend casual usage is high | Introduce weekend membership tiers to capture leisure market |
+
+---
+
+## 10. Technical Appendix
+
+### Tools & Technologies Used
+
+- **Python 3.x**: Primary programming language
+- **Pandas**: Data manipulation and analysis
+- **NumPy**: Numerical computations
+- **Matplotlib & Seaborn**: Statistical visualization
+- **Quarto**: Report generation and publishing
+
+### Data Source
+
+- **CitiBike System Data**: [https://citibikenyc.com/system-data](https://citibikenyc.com/system-data)
+- **Time Period**: September 2025
+- **License**: Public data for non-commercial use
+
+---
+
+## About the Author
+
+**Miguel Ángel Vázquez Varela**
+
+Data Analyst specializing in urban mobility and transportation analytics. This project demonstrates proficiency in exploratory data analysis, data visualization, and deriving actionable business insights from large-scale datasets.
+
+[View Full Notebook](EDA_CitiBike_NYC.ipynb) | [Connect on LinkedIn](https://linkedin.com/in/your-profile) | [GitHub Repository](https://github.com/your-username/transport_data_and_mobility)
+
+---
+
+*Report generated with [Quarto](https://quarto.org) | Data Analytics Portfolio*
