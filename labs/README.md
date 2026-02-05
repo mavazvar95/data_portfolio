@@ -8,32 +8,45 @@ Una colección estructurada de notebooks con ejemplos propios y patrones prácti
 
 ## 🐍 Contenido
 
-| # | Tema | Descripción | Estado |
-|---|------|-------------|--------|
-| 01 | [Python Fundamentals](python/01_python_fundamentals/) | Variables, tipos, estructuras de datos, control flow | 🔄 En progreso |
-| 02 | [Functions & Modules](python/02_functions_and_modules/) | Funciones, scope, imports, buenas prácticas | 🔄 En progreso |
-| 03 | [NumPy Essentials](python/03_numpy_essentials/) | Arrays, operaciones vectorizadas, broadcasting | 🔜 Próximo |
-| 04 | [Pandas Basics](python/04_pandas_basics/) | Series, DataFrames, lectura de datos | 🔜 Próximo |
-| 05 | [Data Cleaning](python/05_data_cleaning/) | Missing values, tipos, transformaciones | 🔜 Próximo |
-| 06 | [Querying & Filtering](python/06_querying_and_filtering/) | Máscaras, queries, selección avanzada | 🔜 Próximo |
-| 07 | [GroupBy & Aggregation](python/07_groupby_and_aggregation/) | Agrupaciones, pivots, reshaping | 🔜 Próximo |
-| 08 | [Joins & Merging](python/08_joins_and_merging/) | Combinar datasets, joins patterns | 🔜 Próximo |
-| 09 | [Visualization](python/09_visualization_basics/) | Matplotlib, Seaborn, gráficos efectivos | 🔜 Próximo |
-| 10 | [Temporal Analytics](python/10_temporal_analytics/) | Series temporales, rolling, resampling | 🔜 Próximo |
-| 11 | [Advanced Patterns](python/11_advanced_patterns/) | Cohort, funnel, retention analysis | 🔜 Próximo |
-| 12 | [Performance](python/12_performance/) | Optimización, Polars, profiling | 🔜 Próximo |
+### 01 - Python Fundamentals
+| Notebook | Descripción |
+|----------|-------------|
+| [01_01_variables_and_types](python/01_python_fundamentals/01_01_variables_and_types.ipynb) | Variables, tipos básicos, casting |
+| [01_02_data_structures](python/01_python_fundamentals/01_02_data_structures.ipynb) | Listas, tuplas, diccionarios, sets |
+
+### 02 - Functions & Modules
+| Notebook | Descripción |
+|----------|-------------|
+| [02_01_functions_basics](python/02_functions_and_modules/02_01_functions_basics.ipynb) | Funciones, parámetros, docstrings, lambdas |
+
+### 03 - NumPy Essentials
+| Notebook | Descripción |
+|----------|-------------|
+| [03_01_arrays_basics](python/03_numpy_essentials/03_01_arrays_basics.ipynb) | Crear arrays, shapes, dtypes |
+| [03_02_indexing_slicing](python/03_numpy_essentials/03_02_indexing_slicing.ipynb) | Acceder elementos, máscaras booleanas |
+| [03_03_operations](python/03_numpy_essentials/03_03_operations.ipynb) | Operaciones vectorizadas, agregaciones |
+
+### 04 - Pandas Basics 🔜
+### 05 - Data Cleaning 🔜
+### 06 - Querying & Filtering 🔜
+### 07 - GroupBy & Aggregation 🔜
+### 08 - Joins & Merging 🔜
+### 09 - Visualization 🔜
+### 10 - Temporal Analytics 🔜
+### 11 - Advanced Patterns 🔜
+### 12 - Performance 🔜
 
 ---
 
-## 📖 Cómo usar esta guía
+## 📖 Cómo usar
 
-Cada notebook es **autocontenido** y sigue esta estructura:
+Cada notebook es **autocontenido** con:
 - Explicación del concepto
-- Código comentado con ejemplos reales
+- Código comentado con ejemplos
 - Ejercicios prácticos
-- Resumen y buenas prácticas
+- Enlaces al anterior y siguiente
 
-**Recomendación:** Sigue el orden numérico para una progresión lógica, o salta directamente al tema que necesites.
+**Recomendación:** Sigue el orden numérico (01_01 → 01_02 → 02_01 → ...).
 
 ---
 
@@ -42,7 +55,3 @@ Cada notebook es **autocontenido** y sigue esta estructura:
 ```bash
 pip install numpy pandas matplotlib seaborn jupyter
 ```
-
----
-
-*See [/showcase](../showcase/) for polished, complete projects.*
