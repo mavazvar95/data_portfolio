@@ -1,37 +1,48 @@
-# 🧪 Advanced Data Analysis Labs
+# 🧪 Python Data Analysis - Guía Práctica
 
-Technical deep-dives demonstrating understanding of data tools beyond basic usage.
+Una colección estructurada de notebooks con ejemplos propios y patrones prácticos para análisis de datos.
 
-> *"Most Pandas problems are actually data modeling problems."*
-
----
-
-## 🐍 Python Labs
-
-| Lab | Focus | Status |
-|-----|-------|--------|
-| 📐 [01_dataframe_design](python/01_dataframe_design/) | Wide vs long, normalization, indexing | 🔜 Planned |
-| 🔍 [02_pandas_query_engine](python/02_pandas_query_engine/) | Complex filters, joins, set operations | 🔜 Planned |
-| ⏱️ [03_temporal_analytics](python/03_temporal_analytics/) | Event-based time series, rolling metrics | 🔜 Planned |
-| ✅ [04_data_quality](python/04_data_quality/) | Data contracts, schema drift, anomalies | 🔜 Planned |
-| 🧠 [05_pandas_internals](python/05_pandas_internals/) | Memory, copy vs view, SettingWithCopy | 🔜 Planned |
-| ⚡ [06_polars_deep_dive](python/06_polars_deep_dive/) | Expression engine, lazy evaluation | 🔜 Planned |
-| 🔄 [07_hybrid_workflows](python/07_hybrid_workflows/) | Pandas + Polars + DuckDB combinations | 🔜 Planned |
-| 📊 [08_analytical_patterns](python/08_analytical_patterns/) | Cohort, funnel, retention analysis | 🔜 Planned |
-| 🚀 [09_performance_engineering](python/09_performance_engineering/) | Profiling, vectorization, chunking | 🔜 Planned |
-
-## 📈 R Labs
-
-| Lab | Focus | Status |
-|-----|-------|--------|
-| 🔧 [tidyverse_patterns](R/tidyverse_patterns/) | Advanced dplyr/tidyr patterns | 🔜 Planned |
-| ⚡ [data_table_deep_dive](R/data_table_deep_dive/) | data.table performance and syntax | 🔜 Planned |
-| 📉 [statistical_methods](R/statistical_methods/) | Statistical analysis in R | 🔜 Planned |
-
-## 📝 Technical Reports
-
-Markdown reports on decision frameworks and lessons learned → [reports/](python/reports/)
+> *Progresión lógica: desde fundamentos de Python hasta técnicas avanzadas de análisis.*
 
 ---
 
-*See [/showcase](../showcase/) for polished, recruiter-ready projects.*
+## 🐍 Contenido
+
+| # | Tema | Descripción | Estado |
+|---|------|-------------|--------|
+| 01 | [Python Fundamentals](python/01_python_fundamentals/) | Variables, tipos, estructuras de datos, control flow | 🔄 En progreso |
+| 02 | [Functions & Modules](python/02_functions_and_modules/) | Funciones, scope, imports, buenas prácticas | 🔄 En progreso |
+| 03 | [NumPy Essentials](python/03_numpy_essentials/) | Arrays, operaciones vectorizadas, broadcasting | 🔜 Próximo |
+| 04 | [Pandas Basics](python/04_pandas_basics/) | Series, DataFrames, lectura de datos | 🔜 Próximo |
+| 05 | [Data Cleaning](python/05_data_cleaning/) | Missing values, tipos, transformaciones | 🔜 Próximo |
+| 06 | [Querying & Filtering](python/06_querying_and_filtering/) | Máscaras, queries, selección avanzada | 🔜 Próximo |
+| 07 | [GroupBy & Aggregation](python/07_groupby_and_aggregation/) | Agrupaciones, pivots, reshaping | 🔜 Próximo |
+| 08 | [Joins & Merging](python/08_joins_and_merging/) | Combinar datasets, joins patterns | 🔜 Próximo |
+| 09 | [Visualization](python/09_visualization_basics/) | Matplotlib, Seaborn, gráficos efectivos | 🔜 Próximo |
+| 10 | [Temporal Analytics](python/10_temporal_analytics/) | Series temporales, rolling, resampling | 🔜 Próximo |
+| 11 | [Advanced Patterns](python/11_advanced_patterns/) | Cohort, funnel, retention analysis | 🔜 Próximo |
+| 12 | [Performance](python/12_performance/) | Optimización, Polars, profiling | 🔜 Próximo |
+
+---
+
+## 📖 Cómo usar esta guía
+
+Cada notebook es **autocontenido** y sigue esta estructura:
+- Explicación del concepto
+- Código comentado con ejemplos reales
+- Ejercicios prácticos
+- Resumen y buenas prácticas
+
+**Recomendación:** Sigue el orden numérico para una progresión lógica, o salta directamente al tema que necesites.
+
+---
+
+## 🚀 Requisitos
+
+```bash
+pip install numpy pandas matplotlib seaborn jupyter
+```
+
+---
+
+*See [/showcase](../showcase/) for polished, complete projects.*
