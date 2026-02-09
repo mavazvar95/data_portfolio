@@ -26,9 +26,14 @@ Una colección estructurada de notebooks con ejemplos propios y patrones prácti
 | [03_02_indexing_slicing](python/03_numpy_essentials/03_02_indexing_slicing.ipynb) | Acceder elementos, máscaras booleanas |
 | [03_03_operations](python/03_numpy_essentials/03_03_operations.ipynb) | Operaciones vectorizadas, agregaciones |
 
-### 04 - Pandas Basics 🔜
-### 05 - Data Cleaning 🔜
-### 06 - Querying & Filtering 🔜
+### 04 - Pandas Basics
+| Notebook | Descripción |
+|----------|-------------|
+| [04_01_series_dataframe](python/04_pandas_basics/04_01_series_dataframe.ipynb) | Series, DataFrames, estructura básica |
+| [04_02_reading_data](python/04_pandas_basics/04_02_reading_data.ipynb) | Leer CSV, JSON, Excel, parámetros útiles |
+| [04_03_selection_filtering](python/04_pandas_basics/04_03_selection_filtering.ipynb) | loc, iloc, filtrado booleano, query() |
+
+### 05 - Pandas Intermediate 🔜
 ### 07 - GroupBy & Aggregation 🔜
 ### 08 - Joins & Merging 🔜
 ### 09 - Visualization 🔜
