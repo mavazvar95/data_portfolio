@@ -18,3 +18,7 @@ venv/
 # OS
 .DS_Store
 Thumbs.db
+
+# Claude Code (local config)
+.claude/
+CLAUDE.md
