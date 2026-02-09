@@ -33,13 +33,18 @@ Una colección estructurada de notebooks con ejemplos propios y patrones prácti
 | [04_02_reading_data](python/04_pandas_basics/04_02_reading_data.ipynb) | Leer CSV, JSON, Excel, parámetros útiles |
 | [04_03_selection_filtering](python/04_pandas_basics/04_03_selection_filtering.ipynb) | loc, iloc, filtrado booleano, query() |
 
-### 05 - Pandas Intermediate 🔜
-### 07 - GroupBy & Aggregation 🔜
-### 08 - Joins & Merging 🔜
-### 09 - Visualization 🔜
-### 10 - Temporal Analytics 🔜
-### 11 - Advanced Patterns 🔜
-### 12 - Performance 🔜
+### 05 - Pandas Intermediate
+| Notebook | Descripción |
+|----------|-------------|
+| [05_01_groupby](python/05_pandas_intermediate/05_01_groupby.ipynb) | GroupBy, agregaciones, transform, filter |
+| [05_02_merge_join](python/05_pandas_intermediate/05_02_merge_join.ipynb) | Merge, tipos de join, concat |
+| [05_03_pivot_reshape](python/05_pandas_intermediate/05_03_pivot_reshape.ipynb) | Pivot tables, melt, wide/long |
+
+### 06 - Data Cleaning 🔜
+### 07 - Visualization 🔜
+### 08 - Temporal Analytics 🔜
+### 09 - Advanced Patterns 🔜
+### 10 - Performance 🔜
 
 ---
 
