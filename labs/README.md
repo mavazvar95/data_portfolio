@@ -40,8 +40,20 @@ Una colección estructurada de notebooks con ejemplos propios y patrones prácti
 | [05_02_merge_join](python/05_pandas_intermediate/05_02_merge_join.ipynb) | Merge, tipos de join, concat |
 | [05_03_pivot_reshape](python/05_pandas_intermediate/05_03_pivot_reshape.ipynb) | Pivot tables, melt, wide/long |
 
-### 06 - Data Cleaning 🔜
-### 07 - Visualization 🔜
+### 06 - Data Cleaning
+| Notebook | Descripción |
+|----------|-------------|
+| [06_01_missing_values](python/06_data_cleaning/06_01_missing_values.ipynb) | Detectar, eliminar y rellenar NaN |
+| [06_02_duplicates_outliers](python/06_data_cleaning/06_02_duplicates_outliers.ipynb) | Duplicados, IQR, Z-score |
+| [06_03_data_types](python/06_data_cleaning/06_03_data_types.ipynb) | Conversión tipos, limpieza texto, fechas |
+
+### 07 - Visualization
+| Notebook | Descripción |
+|----------|-------------|
+| [07_01_matplotlib_basics](python/07_visualization/07_01_matplotlib_basics.ipynb) | Figure, axes, líneas, barras, histogramas |
+| [07_02_pandas_plotting](python/07_visualization/07_02_pandas_plotting.ipynb) | Gráficos directos desde DataFrames |
+| [07_03_seaborn](python/07_visualization/07_03_seaborn.ipynb) | Gráficos estadísticos, hue, facetas |
+
 ### 08 - Temporal Analytics 🔜
 ### 09 - Advanced Patterns 🔜
 ### 10 - Performance 🔜
