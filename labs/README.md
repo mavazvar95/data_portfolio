@@ -53,10 +53,17 @@ Una colección estructurada de notebooks con ejemplos propios y patrones prácti
 | [07_01_matplotlib_basics](python/07_visualization/07_01_matplotlib_basics.ipynb) | Figure, axes, líneas, barras, histogramas |
 | [07_02_pandas_plotting](python/07_visualization/07_02_pandas_plotting.ipynb) | Gráficos directos desde DataFrames |
 | [07_03_seaborn](python/07_visualization/07_03_seaborn.ipynb) | Gráficos estadísticos, hue, facetas |
+| [07_04_matplotlib_dashboard](python/07_visualization/07_04_matplotlib_dashboard.ipynb) | Dashboard completo, GridSpec, estilos profesionales |
 
-### 08 - Temporal Analytics 🔜
-### 09 - Advanced Patterns 🔜
-### 10 - Performance 🔜
+### 08 - Geospatial
+| Notebook | Descripción |
+|----------|-------------|
+| [08_01_geopandas_intro](python/08_geospatial/08_01_geopandas_intro.ipynb) | GeoDataFrame, geometrías, CRS |
+| [08_02_spatial_operations](python/08_geospatial/08_02_spatial_operations.ipynb) | Distancias, buffers, spatial join |
+| [08_03_folium_maps](python/08_geospatial/08_03_folium_maps.ipynb) | Mapas interactivos, marcadores, heatmaps |
+
+### 09 - Temporal Analytics 🔜
+### 10 - Advanced Patterns 🔜
 
 ---
 
@@ -75,5 +82,9 @@ Cada notebook es **autocontenido** con:
 ## 🚀 Requisitos
 
 ```bash
+# Core
 pip install numpy pandas matplotlib seaborn jupyter
+
+# Geospatial (opcional)
+pip install geopandas folium
 ```
