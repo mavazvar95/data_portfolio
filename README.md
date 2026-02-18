@@ -66,8 +66,9 @@ Deep-dives demonstrating senior-level understanding of data tools:
 
 - 📐 DataFrame Design & Data Modeling
 - 🔍 Pandas as a Query Engine
-- ⏱️ Temporal Analytics
+- ⏱️ Temporal Analytics & Series Temporales
 - 🧠 Machine Learning & Scikit-Learn
+- ⚡ High Performance & Polars
 - ✅ Data Quality & Reliability
 - 🧠 Pandas Internals
 - ⚡ Polars Deep Dive

@@ -69,8 +69,17 @@ Una colección estructurada de notebooks con ejemplos propios y patrones prácti
 | [09_02_regression](python/09_machine_learning/09_02_regression.ipynb) | Regresión lineal y árboles de decisión para predicción |
 | [09_03_classification](python/09_machine_learning/09_03_classification.ipynb) | Clasificación con Logistic Regression y métricas de evaluación |
 
-### 10 - Temporal Analytics 🔜
-### 11 - Advanced Patterns 🔜
+### 10 - Temporal Analytics
+| Notebook | Descripción |
+|----------|-------------|
+| [10_01_datetime_basics](python/10_temporal_analytics/10_01_datetime_basics.ipynb) | Manejo de Timestamps, accessors y filtrado temporal |
+| [10_02_resampling_rolling](python/10_temporal_analytics/10_02_resampling_rolling.ipynb) | Remuestreo de series temporales y medias móviles 🔜 |
+
+### 11 - Advanced Patterns
+| Notebook | Descripción |
+|----------|-------------|
+| [11_01_performance](python/11_advanced_patterns/11_01_performance.ipynb) | Optimización de memoria y tipos de datos 🔜 |
+| [11_02_polars_intro](python/11_advanced_patterns/11_02_polars_intro.ipynb) | Introducción a Polars: el futuro del procesamiento en Python |
 
 ---
 
