@@ -62,8 +62,15 @@ Una colección estructurada de notebooks con ejemplos propios y patrones prácti
 | [08_02_spatial_operations](python/08_geospatial/08_02_spatial_operations.ipynb) | Distancias, buffers, spatial join |
 | [08_03_folium_maps](python/08_geospatial/08_03_folium_maps.ipynb) | Mapas interactivos, marcadores, heatmaps |
 
-### 09 - Temporal Analytics 🔜
-### 10 - Advanced Patterns 🔜
+### 09 - Machine Learning
+| Notebook | Descripción |
+|----------|-------------|
+| [09_01_scikit_learn_intro](python/09_machine_learning/09_01_scikit_learn_intro.ipynb) | API de estimadores, preprocesamiento y flujo básico |
+| [09_02_regression](python/09_machine_learning/09_02_regression.ipynb) | Regresión lineal y árboles de decisión para predicción |
+| [09_03_classification](python/09_machine_learning/09_03_classification.ipynb) | Clasificación con Logistic Regression y métricas de evaluación |
+
+### 10 - Temporal Analytics 🔜
+### 11 - Advanced Patterns 🔜
 
 ---
 
@@ -81,10 +88,8 @@ Cada notebook es **autocontenido** con:
 
 ## 🚀 Requisitos
 
-```bash
-# Core
-pip install numpy pandas matplotlib seaborn jupyter
+Instala todas las dependencias necesarias desde el archivo de requisitos:
 
-# Geospatial (opcional)
-pip install geopandas folium
+```bash
+pip install -r python/requirements.txt
 ```
