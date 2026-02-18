@@ -13,6 +13,7 @@ Una colección estructurada de notebooks con ejemplos propios y patrones prácti
 |----------|-------------|
 | [01_01_variables_and_types](python/01_python_fundamentals/01_01_variables_and_types.ipynb) | Variables, tipos básicos, casting |
 | [01_02_data_structures](python/01_python_fundamentals/01_02_data_structures.ipynb) | Listas, tuplas, diccionarios, sets |
+| [01_03_control_flow](python/01_python_fundamentals/01_03_control_flow.ipynb) | if/elif/else, for, while, comprensiones, try/except |
 
 ### 02 - Functions & Modules
 | Notebook | Descripción |
