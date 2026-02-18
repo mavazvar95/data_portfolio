@@ -68,7 +68,7 @@ Deep-dives demonstrating senior-level understanding of data tools:
 - 🔍 Pandas as a Query Engine
 - ⏱️ Temporal Analytics & Series Temporales
 - 🧠 Machine Learning & Scikit-Learn
-- ⚡ High Performance & Polars
+- ⚡ Polars Ecosystem (Foundations, Wrangling, Lazy API, Time Series)
 - ✅ Data Quality & Reliability
 - 🧠 Pandas Internals
 - ⚡ Polars Deep Dive

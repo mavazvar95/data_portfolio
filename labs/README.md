@@ -75,11 +75,14 @@ Una colección estructurada de notebooks con ejemplos propios y patrones prácti
 | [10_01_datetime_basics](python/10_temporal_analytics/10_01_datetime_basics.ipynb) | Manejo de Timestamps, accessors y filtrado temporal |
 | [10_02_resampling_rolling](python/10_temporal_analytics/10_02_resampling_rolling.ipynb) | Remuestreo de series temporales y medias móviles 🔜 |
 
-### 11 - Advanced Patterns
+### 11 - Advanced Patterns: Polars Ecosystem
 | Notebook | Descripción |
 |----------|-------------|
-| [11_01_performance](python/11_advanced_patterns/11_01_performance.ipynb) | Optimización de memoria y tipos de datos 🔜 |
-| [11_02_polars_intro](python/11_advanced_patterns/11_02_polars_intro.ipynb) | Introducción a Polars: el futuro del procesamiento en Python |
+| [11_01_performance_pandas](python/11_advanced_patterns/11_01_performance.ipynb) | Optimización de memoria y tipos de datos en Pandas 🔜 |
+| [11_02_polars_foundations](python/11_advanced_patterns/11_02_polars_foundations.ipynb) | Cimientos de Polars: El motor de expresiones y sistemas de tipos |
+| [11_03_polars_wrangling](python/11_advanced_patterns/11_03_polars_wrangling.ipynb) | Transformación masiva: Joins, Pivots y Agregaciones paralelas |
+| [11_04_polars_lazy](python/11_advanced_patterns/11_04_polars_lazy.ipynb) | Optimización Pro: Lazy Evaluation, Query Planning y Streaming |
+| [11_05_polars_timeseries](python/11_advanced_patterns/11_05_polars_timeseries.ipynb) | Series Temporales a escala: group_by_dynamic y rolling windows |
 
 ---
 
