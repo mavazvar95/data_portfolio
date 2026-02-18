@@ -18,6 +18,8 @@ Una colección estructurada de notebooks con ejemplos propios y patrones prácti
 | Notebook | Descripción |
 |----------|-------------|
 | [02_01_functions_basics](python/02_functions_and_modules/02_01_functions_basics.ipynb) | Funciones, parámetros, docstrings, lambdas |
+| [02_02_advanced_functions](python/02_functions_and_modules/02_02_advanced_functions.ipynb) | *args, **kwargs, map/filter, closures, decoradores |
+| [02_03_modules_and_packages](python/02_functions_and_modules/02_03_modules_and_packages.ipynb) | Imports, stdlib (math, random, datetime, pathlib), collections, módulos propios |
 
 ### 03 - NumPy Essentials
 | Notebook | Descripción |
@@ -73,7 +75,8 @@ Una colección estructurada de notebooks con ejemplos propios y patrones prácti
 | Notebook | Descripción |
 |----------|-------------|
 | [10_01_datetime_basics](python/10_temporal_analytics/10_01_datetime_basics.ipynb) | Manejo de Timestamps, accessors y filtrado temporal |
-| [10_02_resampling_rolling](python/10_temporal_analytics/10_02_resampling_rolling.ipynb) | Remuestreo de series temporales y medias móviles 🔜 |
+| [10_02_resampling_rolling](python/10_temporal_analytics/10_02_resampling_rolling.ipynb) | Downsampling, upsampling, rolling y EWM |
+| [10_03_trends_and_patterns](python/10_temporal_analytics/10_03_trends_and_patterns.ipynb) | shift/diff, autocorrelación, descomposición estacional e ingeniería de features |
 
 ### 11 - Advanced Patterns: Polars Ecosystem
 | Notebook | Descripción |
