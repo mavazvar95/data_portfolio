@@ -21,6 +21,7 @@ Una colección estructurada de notebooks con ejemplos propios y patrones prácti
 | [02_01_functions_basics](python/02_functions_and_modules/02_01_functions_basics.ipynb) | Funciones, parámetros, docstrings, lambdas |
 | [02_02_advanced_functions](python/02_functions_and_modules/02_02_advanced_functions.ipynb) | *args, **kwargs, map/filter, closures, decoradores |
 | [02_03_modules_and_packages](python/02_functions_and_modules/02_03_modules_and_packages.ipynb) | Imports, stdlib (math, random, datetime, pathlib), collections, módulos propios |
+| [02_04_best_practices](python/02_functions_and_modules/02_04_best_practices.ipynb) | PEP 8, type hints, DRY, responsabilidad única, testing con assert/pytest, estructura de proyecto |
 
 ### 03 - NumPy Essentials
 | Notebook | Descripción |
@@ -87,6 +88,15 @@ Una colección estructurada de notebooks con ejemplos propios y patrones prácti
 | [11_03_polars_wrangling](python/11_advanced_patterns/11_03_polars_wrangling.ipynb) | Transformación masiva: Joins, Pivots y Agregaciones paralelas |
 | [11_04_polars_lazy](python/11_advanced_patterns/11_04_polars_lazy.ipynb) | Optimización Pro: Lazy Evaluation, Query Planning y Streaming |
 | [11_05_polars_timeseries](python/11_advanced_patterns/11_05_polars_timeseries.ipynb) | Series Temporales a escala: group_by_dynamic y rolling windows |
+
+### 12 - Scraping & Data Acquisition
+| Notebook | Descripción |
+|----------|-------------|
+| [12_01_requests_basics](python/12_scraping/12_01_requests_basics.ipynb) | HTTP, GET, status codes, parámetros, cabeceras, gestión de errores |
+| [12_02_beautifulsoup](python/12_scraping/12_02_beautifulsoup.ipynb) | Parseo HTML, find/find_all, CSS selectors, extracción de tablas |
+| [12_03_scraping_real_cases](python/12_scraping/12_03_scraping_real_cases.ipynb) | Paginación, limpieza de datos scrapeados, guardado, retries |
+| [12_04_selenium](python/12_scraping/12_04_selenium.ipynb) | Sitios con JavaScript, esperas explícitas, formularios, scroll infinito |
+| [12_05_ethics_and_best_practices](python/12_scraping/12_05_ethics_and_best_practices.ipynb) | robots.txt, rate limiting, aspectos legales, checklist |
 
 ---
 
